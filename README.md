@@ -8,14 +8,26 @@ The application is written using [Slight]() and uses the [SQL and HTTP Client ca
 
 > *IMPORTANT* This application is a demo app and is not intended to be run in a production environment. It is intended for demonstrating the features and capabilities of Slight only. Use at your own risk.
 
-## Run the application on your development computer
+## Before you begin
 
-You can run the Slight demo application directly on your development computer.
-
-Before you begin, you'll need:
+To run this sample application, at minimum you'll need:
 
 - [Slight installed](https://github.com/deislabs/spiderlightning#installation)
 - [Access to a postgresql database](https://www.postgresql.org/)
+
+If you don't have access to a postgresql database, you can run one locally using [Docker Desktop](https://www.docker.com/products/docker-desktop/) and the [postgres image](https://hub.docker.com/_/postgres). The [README for the image](https://github.com/docker-library/docs/blob/master/postgres/README.md#start-a-postgres-instance) has instructions for running the image, but does not expose the port to the host by default. Use the `-p` flag to expose the port to the host, for example:
+
+```console
+docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d -p 5432:5432 postgres
+```
+
+You can also use a hosted database service, such as [Azure Database for PostgreSQL](https://learn.microsoft.com/azure/postgresql/?wt.mc_id=azurelearn_inproduct_oss_wasm).
+
+> **IMPORTANT** At this time, the demo application can't connect to a database that requires SSL. Make sure your database is configured to not *prefer*, but not *require* SSL.
+
+## Run the application on your development computer
+
+You can run the Slight demo application directly on your development computer.
 
 Clone the sample repo and navigate to the root directory:
 
@@ -42,14 +54,12 @@ Add or remove entries in the *repos* table and refresh `localhost:3000/show_feed
 
 ## Run the application in Kubernetes
 
-You can run the Slight demo application directly on your development computer.
+You can run the Slight demo application in a Kubernetes cluster.
 
-Before you begin, you'll need:
+In addition to Slight and a postgresql database, you'll need:
 
-- [Slight installed](https://github.com/deislabs/spiderlightning#installation)
-- [Access to a postgresql database](https://www.postgresql.org/)
 - [Docker Desktop installed](https://www.docker.com/products/docker-desktop/)
-- Access to a Kubernetes cluster that can run WebAssembly modules, such as [k3d](https://k3d.io/) or [Azure Kubernetes Service](https://learn.microsoft.com/azure/aks/use-wasi-node-pools?wt.mc_id=azurelearn_inproduct_oss_wasm)
+- Access to a Kubernetes cluster that can run WebAssembly modules, such as [k3d](https://k3d.io/)
 - Access to a container registry, such as [Dockerhub](https://hub.docker.com/), [ORAS registry](https://github.com/oras-project/distribution/pkgs/container/registry), or [Azure Container Registry](https://learn.microsoft.com/azure/container-registry/container-registry-get-started-azure-cli?wt.mc_id=azurelearn_inproduct_oss_wasm)
 
 Clone the sample repo and navigate to the root directory:
